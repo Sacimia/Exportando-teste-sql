@@ -1,0 +1,54 @@
+create database exportar;
+use exportar;
+
+create table exp1(
+  Id int unsigned not null auto_increment,
+  Nome varchar(45) not null,
+  Salario Int not null ,
+  departamento varchar(50),
+  primary key(Id)
+);
+
+Insert INTO exp1(Nome, salario, departamento)
+values('Vinicius Santos Nimia', '0', 'Nao trabalha');
+
+create table veiculos(
+ Id int unsigned not null auto_increment,
+ funcionario_id int unsigned default null,
+ placa varchar(10) not null default '',
+ veículo varchar(30) not null default'',
+ primary key (ID),
+ constraint vaiculos_funcionarios foreign key (funcionario_id) references funcionarios(Id)
+);
+Create table salarios(
+PRODUTO VARCHAR(10),
+SALDO_INICIAL NUMERIC(10),
+SALDO_FINAL NUMERIC(10),
+DATA_ULT_MOV DATETIME
+);
+
+INSERT INTO salarios(Produto, saldo_inicial, saldo_final)
+values ('Produtos A', 0 ,100, getdate());
+
+CREATE TABLE vendas (
+ID_VENDAS INT,
+PRODUTO VARCHAR(10),
+QUANTIDADE INT,
+DATA datetime
+);
+create table historicovendas(
+PRODUTO VARCHAR(10),
+QUANTIDADE INT,
+DATA_VENDA DATETIME
+);
+create trigger AjustaSaldo on vendas table
+ FOR INSERT BEGIN DECLARE @QUANTIDADE  INT, @DATA DATETIME, @PRODUTO VARCHAR(10) 
+ SELECT @DATA = DATA, @QUANTIDADE, @PRODUTO = PRODUTO FROM INSERTED 
+ update salarios 
+SET saldo_final = saldo_final - @QUANRIDADE,
+ DATA_VENDA = @DATA
+ WHERE PRODUTO = @PRODUTO
+ Insert into historicovendas (PRODUTO, QUANTIDADE, DATA_VENDA)
+ VALUES (@Produto @quantidade @data)
+ set saldo_final = saldo_final - @Quantidade 
+ END
